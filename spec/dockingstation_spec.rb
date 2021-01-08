@@ -17,10 +17,17 @@ describe DockingStation do
 
   end
   context "docks bike" do
-    it do
+
+    it "will dock a bike" do
       bicycle = Bike.new
       subject.dock(bicycle)
-      expect(subject.bike).to eq bicycle
+      expect(subject.bikes).to include bicycle
+    end
+
+    it "should return an error if there is already a bike docked" do
+      20.times {subject.dock Bike.new}
+      bike2 = Bike.new
+      expect{subject.dock(bike2)}.to raise_error
     end
   end
 
