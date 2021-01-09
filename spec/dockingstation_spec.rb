@@ -48,4 +48,20 @@ describe DockingStation do
 
   end
 
+  context "provide broken bike function" do
+
+    it "should respond to provide broken bike" do
+      expect(subject).to respond_to(:provide_broken_bike)
+    end
+
+    it "should release a broken bike" do
+      bike.report_broken
+      allow(bike).to receive(:working?).and_return(false)
+      subject.dock(bike)
+      subject.provide_broken_bike(Van.new)
+      expect(subject.bikes).not_to include(bike)
+    end
+
+  end
+
 end

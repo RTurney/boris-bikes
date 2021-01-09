@@ -1,4 +1,6 @@
 require_relative 'Bike'
+require_relative 'Van'
+
 class DockingStation
 
   DEFAULT_CAPACITY = 20
@@ -20,6 +22,15 @@ class DockingStation
   def dock(bike)
     raise "This station is full" if full?
     @bikes << bike
+  end
+
+  def provide_broken_bike(van)
+    bikes.each.with_index do |bike, index|
+      if !bike.working?
+        van.storage << bike
+        bikes.delete_at(index)
+      end
+    end
   end
 
   private
