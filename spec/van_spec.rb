@@ -19,11 +19,7 @@ describe Van do
     it {is_expected.to respond_to :deliver_bikes}
 
     it "should deliver bikes to the garage object" do
-      docking_station = DockingStation.new
-      bike = Bike.new
-      bike.report_broken
-      docking_station.dock(bike)
-      docking_station.provide_broken_bike(subject)
+      subject.storage << bike 
       subject.deliver_bikes(garage)
       expect(subject.storage).not_to include(bike)
     end
@@ -32,6 +28,11 @@ describe Van do
   context "collect bikes function" do
 
     it {is_expected.to respond_to :collect_bikes}
-    
+
+    it "should take bikes from the garage" do
+      garage.storage << bike
+      subject.collect_bikes(garage)
+      expect(garage.storage).not_to include(bike)
+    end
   end
 end
