@@ -16,6 +16,7 @@ describe DockingStation do
     end
 
   end
+
   context "docks bike" do
 
     it "will dock a bike" do
@@ -29,6 +30,14 @@ describe DockingStation do
       bike2 = Bike.new
       expect{subject.dock(bike2)}.to raise_error "This station is full"
     end
+  end
+
+  context "capacity" do
+
+    it "should have a default capacity if no capacity is given" do
+      expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
+    end 
+
   end
 
 end
