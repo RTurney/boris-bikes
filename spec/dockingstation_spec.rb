@@ -12,7 +12,7 @@ describe DockingStation do
     end
 
     it "should return an error if there is no bike" do
-      expect{subject.release_bike}.to raise_error
+      expect{subject.release_bike}.to raise_error "There is no bike"
     end
 
   end
@@ -25,9 +25,9 @@ describe DockingStation do
     end
 
     it "should return an error if there is already a bike docked" do
-      20.times {subject.dock Bike.new}
+      DockingStation::DEFAULT_CAPACITY.times {subject.dock Bike.new}
       bike2 = Bike.new
-      expect{subject.dock(bike2)}.to raise_error
+      expect{subject.dock(bike2)}.to raise_error "This station is full"
     end
   end
 
